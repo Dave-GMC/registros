@@ -15,7 +15,7 @@ export default function ListaCuros() {
             <Titulo titulo= {TextoTitlulo}/>
 
             <center>
-                <Button className='mt-3' variante="primary" as={Link} to='/crearCursos'>Crear Alumno</Button>
+                <Button className='mt-3' variante="primary" as={Link} to='/crearCursos'>Crear Curso</Button>
             </center>
             
             <TablaCursos/>
