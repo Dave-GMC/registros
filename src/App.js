@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import {BrowserRouter, Routes, Route}from 'react-router-dom';
 import './App.css';
+import ListaCuros from './views/ListaCursos';
+import CrearCursos from './views/CrearCurso';
+import Error404 from './views/Error404';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+
+        <Routes>
+
+          <Route path='/' element={<ListaCuros/>}></Route>
+          <Route path='/crearCursos' element={<CrearCursos/>}></Route>
+          <Route path='/*' element={<Error404/>}></Route>
+
+
+          
+        </Routes>
+      
+      </BrowserRouter>
+
+      
+      
     </div>
   );
 }
