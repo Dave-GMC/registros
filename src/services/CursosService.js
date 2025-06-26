@@ -4,6 +4,8 @@ import { rutas_endpoints } from "../ambientes/RutasEndpoints";
 
 
 // -------------- Lista todos los cursos --------------
+
+
 export const getAllCursos= async ()=>{
 
     try {
@@ -258,6 +260,153 @@ export const getAllCursos= async ()=>{
             
         }
 
+    }
+
+
+    // -------------- Actualizar curso --------------
+
+    export const getCursoById = async (id_curso) => {
+
+    try {
+
+        const { data } = await axios.get(
+            rutas_endpoints.getCursoById + id_curso,
+            {},
+            {
+                'Content-Type' : 'applicacion/json',
+                //'pais' : 'CR'
+            }
+        );
+
+        //debugger
+
+        if(data.resultado_tipo === "success"){
+
+            return data.datos;
+
+        }
+        else if(data.resultado_tipo === "warning"){
+
+            Swal.fire({
+                icon: 'info',
+                title: "Para su información",
+                text: data.respuesta_detalle
+            });
+
+            return false;
+
+        }
+        else if(data.resultado_tipo === "error"){
+
+            Swal.fire({
+                icon: 'info',
+                title: "Para su información",
+                text: data.respuesta_detalle
+            })
+
+            return false;
+
+        }
+
+        
+    } catch (error) {
+
+        Swal.fire({
+            icon : 'info',
+            title: 'Para su información',
+            text: error.message
+        })
+
+        return false;
+        
+    }
+
+}
+
+//-----------------------------------------------
+
+    export const updateCurso = async (
+        {
+            nombre, 
+            descripcion, 
+            creditos, 
+            codigo, 
+            estado,
+            id
+        }
+    ) => {
+
+        try{
+        
+        const { data } = await axios.put(
+            rutas_endpoints.update_Curso + id,
+            {
+                nombre, 
+                descripcion, 
+                creditos, 
+                codigo, 
+                estado
+                
+            },
+            {
+                'Content-Type' : 'applicacion/json',
+                
+            }
+        );
+
+        if(data.resultado_tipo === "success"){
+
+            Swal.fire(
+                {
+                    icon:'info',
+                    title:"Para su informacion",
+                    text: data.respuesta_detalle
+                }
+            );
+
+        return true;
+
+
+
+        }
+        else if(data.resultado_tipo === "warning"){
+            Swal.fire(
+                {
+                    icon:'info',
+                    title:"Para su informacion",
+                    text: data.respuesta_detalle
+                }
+            );
+
+        return false;
+
+        }
+        else if(data.resultado_tipo === "error"){
+            Swal.fire(
+                {
+                    icon:'info',
+                    title:"Para su informacion",
+                    text: data.respuesta_detalle
+                }
+            );
+
+        return false;
+
+        }
+
+
+        }catch (error) {
+            Swal.fire(
+            {
+                icon:'info',
+                title:"Para su informacion",
+                text: error.message
+            }
+        );
+
+        return false;
+
+        }
     }
 
 

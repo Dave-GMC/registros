@@ -3,6 +3,8 @@ import { Button,Form} from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { createCurso } from '../services/CursosService';
+
+
 export default function FormularioCrearCurso() {
 
     const navigate = useNavigate();

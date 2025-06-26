@@ -1,13 +1,20 @@
 import React,{useEffect, useState} from 'react'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { Grid } from 'gridjs-react';
 import { h } from 'gridjs';
 import "gridjs/dist/theme/mermaid.css";
 import Swal from 'sweetalert2';
-import {getAllCursos, deleteLogicoCurso} from "../services/CursosService.js";
+import {getAllCursos, deleteLogicoCurso, getCursoById} from "../services/CursosService.js";
+import { setCurso } from '../store/cursosSlice.js';
 
 export default function TablaCursos() {
+
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const [datosCursos, setDatosCursos] = useState([]);
 
@@ -23,7 +30,18 @@ export default function TablaCursos() {
 
     }
 
-    const actualizarCurso = async () =>{
+    const actualizarCurso = async (id) =>{
+        const result = await getCursoById(id);
+
+        if(result){
+            // guarder in en redux
+            dispatch(setCurso(result));
+
+            // Se redirecciona a la pagina de editar
+            navigate('/editarCurso');
+            
+        }
+
 
     }
 
